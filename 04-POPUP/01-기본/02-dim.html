@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>팝업창 띄우기</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transition: 0.4s;
+
+        pointer-events: none;
+        user-select: none;
+      }
+      body.dim::before {
+        opacity: 1;
+      }
+
+      .wrap {
+        width: 60%;
+        margin: 0 auto;
+        background: #ff5;
+        font-size: 2rem;
+      }
+      .popup {
+        position: fixed;
+        top: -50%;
+        left: 50%;
+        width: 600px;
+        height: 400px;
+        border: 10px solid #000;
+        background: #fff;
+        transform: translate(-50%, -50%);
+        padding: 60px;
+        transition: 0.4s;
+      }
+
+      .popup.visible {
+        top: 50%;
+      }
+
+      .btn-close {
+        padding: 10px 20px;
+        background: #000;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const body = document.body;
+        const popup = document.querySelector(".popup");
+
+        document.querySelector(".wrap a").addEventListener("click", () => {
+          body.classList.add("dim");
+          popup.classList.add("visible");
+        });
+
+        document.querySelector(".btn-close").addEventListener("click", () => {
+          body.classList.remove("dim");
+          popup.classList.remove("visible");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="popup">
+      <h2>불렀어?</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde veritatis
+        odio suscipit laborum qui recusandae voluptatem quidem pariatur minima
+        quo. Voluptatibus vero maxime rem ad non, reprehenderit iste vel
+        dolores?
+      </p>
+      <button class="btn-close" type="button">닫기</button>
+    </div>
+
+    <div class="wrap">
+      <p>
+        <a href="#">Lorem ipsum dolor</a> sit amet consectetur adipisicing elit.
+        Possimus nihil voluptas fugiat, rerum voluptatum tenetur fugit sequi
+        corporis laborum voluptates. Ex alias, quod itaque tenetur quis maxime
+        eius, saepe rem doloribus neque quidem pariatur incidunt libero
+      </p>
+    </div>
+  </body>
+</html>
